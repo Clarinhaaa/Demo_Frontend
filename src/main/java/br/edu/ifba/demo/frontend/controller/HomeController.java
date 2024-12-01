@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
-
 @Controller
 public class HomeController {
     @Autowired
     private UsuarioService usuarioService;
 
+    //* Listar todos os livros */
     @GetMapping("/")
     public ModelAndView index() {
         String valor = usuarioService.listAllUsuarios().toString();
@@ -32,6 +32,4 @@ public class HomeController {
         mv.setViewName("index");
         return mv;
     }
-    
-
 }

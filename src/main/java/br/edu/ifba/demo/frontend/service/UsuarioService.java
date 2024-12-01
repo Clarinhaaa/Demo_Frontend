@@ -15,32 +15,28 @@ public class UsuarioService {
     @Autowired
     private WebClient webClient;
 
-    public List<UsuarioDTO> listAllUsuarios(){
+    public List<UsuarioDTO> listAllUsuarios() {
         Mono<List<UsuarioDTO>> usuarioList = this.webClient
-            .method(HttpMethod.GET)
-            .uri("usuario/listall")
-            .retrieve()
-            .bodyToFlux(UsuarioDTO.class)
-            .collectList();
-        
+                .method(HttpMethod.GET)
+                .uri("usuario/listall")
+                .retrieve()
+                .bodyToFlux(UsuarioDTO.class)
+                .collectList();
+
         List<UsuarioDTO> list = usuarioList.block();
         return list;
     }
 
-    public boolean delete(int id_usuario){
+    public boolean delete(int id_usuario) {
         Mono<UsuarioDTO> usuarioList = this.webClient
-            .method(HttpMethod.DELETE)  
-            .uri("usuario/{id}", id_usuario)
-            .retrieve()
-            .bodyToMono(UsuarioDTO.class);
-        
+                .method(HttpMethod.DELETE)
+                .uri("usuario/{id}", id_usuario)
+                .retrieve()
+                .bodyToMono(UsuarioDTO.class);
+
         UsuarioDTO usu = usuarioList.block();
-        if (usu!=null) {
+        if (usu != null)
             return true;
-        }
         return false;
-
     }
-
-
 }

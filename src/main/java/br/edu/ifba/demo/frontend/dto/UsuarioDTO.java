@@ -12,4 +12,3 @@ public class UsuarioDTO {
 	private Timestamp create_at;
 	private Timestamp last_login;
 }
-
