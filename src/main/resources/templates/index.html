@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<body>
-    <p th:text="${teste}">Teste</p>
-    <form action="/delete/1">
-        <button>Delete</button>
-    </form>
-    <p th:text="${delete}"></p>
-    <hr />
-    <button
-</body>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="lista-livros">
+        <tr th:each="liv : ${listaLivros}" class="livro">
+          <td th:text="${liv.titulo}">a</td>
+          <td th:text="${liv.autor}">a</td>
+          <td th:text="${liv.editora}">a</td>
+          <td th:text="${liv.ano_publicacao}">a</td>
+          <td th:text="${liv.genero}">a</td>
+          <td th:text="${liv.isbn}">a</td>
+          <td th:text="${liv.num_paginas}">a</td>
+        </tr>
+      </div>
+    </div>
+  </body>
 </html>

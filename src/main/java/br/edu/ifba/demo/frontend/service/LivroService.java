@@ -54,7 +54,8 @@ public class LivroService {
 
     // * Adicionar livro */
     public LivroDTO addLivro(LivroDTO livroCadastrar) {
-        return this.webClient.method(HttpMethod.POST).uri("livro").bodyValue(livroCadastrar).retrieve().bodyToMono(LivroDTO.class)
+        return this.webClient.method(HttpMethod.POST).uri("livro").bodyValue(livroCadastrar).retrieve()
+                .bodyToMono(LivroDTO.class)
                 .block();
     }
 
@@ -62,7 +63,7 @@ public class LivroService {
     public boolean deleteLivro(Long id_livro) {
         Mono<LivroDTO> livroList = this.webClient.method((HttpMethod.DELETE)).uri("livro/{idLivro}", id_livro)
                 .retrieve().bodyToMono(LivroDTO.class);
-        
+
         LivroDTO livro = livroList.block();
         if (livro != null)
             return true;
