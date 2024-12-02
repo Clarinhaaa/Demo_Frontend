@@ -15,7 +15,7 @@ public class LivroService {
     @Autowired
     private WebClient webClient;
 
-    //* Listar todos os livros */
+    // * Listar todos os livros */
     public List<LivroDTO> listAllLivros() {
         Mono<List<LivroDTO>> livroList = this.webClient.method(HttpMethod.GET).uri("livro/listall").retrieve()
                 .bodyToFlux(LivroDTO.class).collectList();
@@ -24,7 +24,7 @@ public class LivroService {
         return livroListRetornar;
     }
 
-    //* Pegar o livro pelo ID */
+    // * Pegar o livro pelo ID */
     public LivroDTO getByIdLivro(Long id_livro) {
         Mono<LivroDTO> livro = this.webClient.method(HttpMethod.GET).uri("livro/getById/{id}", id_livro).retrieve()
                 .bodyToMono(LivroDTO.class);
@@ -33,7 +33,7 @@ public class LivroService {
         return livroRetornar;
     }
 
-    //* Pegar o livro pelo ISBN */
+    // * Pegar o livro pelo ISBN */
     public LivroDTO getByIsbn(Integer isbn) {
         Mono<LivroDTO> livro = this.webClient.method(HttpMethod.GET).uri("livro/getByIsbn/{isbn}", isbn).retrieve()
                 .bodyToMono(LivroDTO.class);
@@ -42,19 +42,30 @@ public class LivroService {
         return livroRetornar;
     }
 
-    //* Pegar o livro pelo título */
+    // * Pegar o livro pelo título */
     public LivroDTO getByTitulo(String titulo) {
-        Mono<LivroDTO> livro = this.webClient.method(HttpMethod.GET).uri("livro/getByTitulo/{titulo}", titulo).retrieve()
+        Mono<LivroDTO> livro = this.webClient.method(HttpMethod.GET).uri("livro/getByTitulo/{titulo}", titulo)
+                .retrieve()
                 .bodyToMono(LivroDTO.class);
 
         LivroDTO livroRetornar = livro.block();
         return livroRetornar;
     }
 
-    //* Adicionar livro */
-    public boolean addLivro(LivroDTO livroCadastrar) {
-        Mono<LivroDTO> livro = this.webClient.method(HttpMethod.POST).uri("livro", livroCadastrar).retrieve()
-                .bodyToMono(LivroDTO.class);
+    // * Adicionar livro */
+    public LivroDTO addLivro(LivroDTO livroCadastrar) {
+        return this.webClient.method(HttpMethod.POST).uri("livro").bodyValue(livroCadastrar).retrieve().bodyToMono(LivroDTO.class)
+                .block();
+    }
+
+    // * Deletar livro */
+    public boolean deleteLivro(Long id_livro) {
+        Mono<LivroDTO> livroList = this.webClient.method((HttpMethod.DELETE)).uri("livro/{idLivro}", id_livro)
+                .retrieve().bodyToMono(LivroDTO.class);
         
+        LivroDTO livro = livroList.block();
+        if (livro != null)
+            return true;
+        return false;
     }
 }
