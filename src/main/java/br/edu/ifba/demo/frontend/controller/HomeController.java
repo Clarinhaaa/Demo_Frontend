@@ -12,6 +12,8 @@ import br.edu.ifba.demo.frontend.service.LivroService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class HomeController {
@@ -24,12 +26,22 @@ public class HomeController {
     // * Listar todos os livros */
     @GetMapping("/")
     public ModelAndView index() {
-        List<LivroDTO> li = livroService.listAllLivros();
+        List<LivroDTO> listaLiv = livroService.listAllLivros();
         ModelAndView mv = new ModelAndView();
-        mv.addObject("listaLivros", li);
+        mv.addObject("listaLivros", listaLiv);
         mv.setViewName("index");
         return mv;
     }
+
+    @GetMapping("/livro/getById/{id}")
+    public ModelAndView getByIdLivro(@PathVariable Long id) {
+        LivroDTO liv = livroService.getByIdLivro(id);
+        ModelAndView mv = new ModelAndView();
+        mv.addObject("livroId", liv);
+        mv.setViewName("index");
+        return mv;
+    }
+    
 
     @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable int id) {

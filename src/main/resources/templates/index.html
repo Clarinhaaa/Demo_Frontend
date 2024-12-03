@@ -4,20 +4,48 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
   </head>
   <body>
     <div class="container">
+      <!-- Imprimir todos os livros -->
       <div class="lista-livros">
-        <tr th:each="liv : ${listaLivros}" class="livro">
-          <td th:text="${liv.titulo}">a</td>
-          <td th:text="${liv.autor}">a</td>
-          <td th:text="${liv.editora}">a</td>
-          <td th:text="${liv.ano_publicacao}">a</td>
-          <td th:text="${liv.genero}">a</td>
-          <td th:text="${liv.isbn}">a</td>
-          <td th:text="${liv.num_paginas}">a</td>
+        <tr th:each="liv : ${listaLivros}">
+          <div class="livro">
+            <p class="titulo"><td th:text="${liv.titulo}">a</td></p>
+            <p>
+              Autor(a):
+              <td th:text="${liv.autor}">a</td>
+            </p>
+            <p>
+              Editora:
+              <td th:text="${liv.editora}">a</td>
+            </p>
+            <p>
+              Ano de publicação:
+              <td th:text="${liv.ano_publicacao}">a</td>
+            </p>
+            <p>
+              Gênero(s):
+              <td th:text="${liv.genero}">a</td>
+            </p>
+            <p>
+              ISBN:
+              <td th:text="${liv.isbn}">a</td>
+            </p>
+            <p>
+              Qtd. páginas:
+              <td th:text="${liv.num_paginas}">a</td>
+            </p>
+          </div>
         </tr>
+      </div>
+      <!-- Ações de procurar um livro -->
+      <div class="acoes-livro">
+        <form th:action="@{/livro/getById/}">
+          <label>Teste</label>
+          <button type="submit">Pesquisar por ID</button>
+        </form>
       </div>
     </div>
   </body>
