@@ -5,20 +5,19 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import br.edu.ifba.demo.frontend.service.UsuarioService;
+/* import br.edu.ifba.demo.frontend.service.UsuarioService; */
 import br.edu.ifba.demo.frontend.dto.LivroDTO;
 import br.edu.ifba.demo.frontend.service.LivroService;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
 public class HomeController {
-    @Autowired
-    private UsuarioService usuarioService;
+    /* @Autowired
+    private UsuarioService usuarioService; */
 
     @Autowired
     private LivroService livroService;
@@ -34,7 +33,7 @@ public class HomeController {
     }
 
     @GetMapping("/livro/getById/{id}")
-    public ModelAndView getByIdLivro(@PathVariable Long id) {
+    public ModelAndView getByIdLivro(@PathVariable("id") Long id) {
         LivroDTO liv = livroService.getByIdLivro(id);
         ModelAndView mv = new ModelAndView();
         mv.addObject("livroId", liv);
@@ -42,13 +41,12 @@ public class HomeController {
         return mv;
     }
     
-
-    @GetMapping("/delete/{id}")
+   /*  @GetMapping("/delete/{id}")
     public ModelAndView delete(@PathVariable int id) {
         boolean valor = usuarioService.delete(id);
         ModelAndView mv = new ModelAndView();
         mv.addObject("delete", valor);
         mv.setViewName("index");
         return mv;
-    }
+    } */
 }

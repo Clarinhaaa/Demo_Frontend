@@ -12,7 +12,7 @@
       <div class="lista-livros">
         <tr th:each="liv : ${listaLivros}">
           <div class="livro">
-            <p class="titulo"><td th:text="${liv.titulo}">a</td></p>
+            <h1 class="titulo"><td th:text="${liv.titulo}">a</td></h1>
             <p>
               Autor(a):
               <td th:text="${liv.autor}">a</td>
@@ -40,13 +40,57 @@
           </div>
         </tr>
       </div>
-      <!-- Ações de procurar um livro -->
+      <!-- Formulário de cadastro -->
+      <div></div>
+      <!-- Formulários de pesquisa -->
       <div class="acoes-livro">
-        <form th:action="@{/livro/getById/}">
-          <label>Teste</label>
+        <form th:action="@{/livro/getById/{id}(id=${id})}" th:method="get">
+          <label for="idLivro">Insira o ID do livro:</label>
+          <input
+            type="number"
+            id="idLivro"
+            name="id"
+            placeholder="Digite aqui"
+          />
           <button type="submit">Pesquisar por ID</button>
         </form>
+        <div class="livro" th:if="${livroId != null}">
+          <h1 th:text="${livroId.titulo}" class="titulo">a</h1>
+          <p>Autor(a): <span th:text="${livroId.autor}">a</span></p>
+          <p>Editora: <span th:text="${livroId.editora}">a</span></p>
+          <p>
+            Ano de publicação:
+            <span th:text="${livroId.ano_publicacao}">a</span>
+          </p>
+          <p>Gênero(s): <span th:text="${livroId.genero}">a</span></p>
+          <p>ISBN: <span th:text="${livroId.isbn}">a</span></p>
+          <p>Qtd. páginas: <span th:text="${livroId.num_paginas}">a</span></p>
+        </div>
+
+        <form th:action="@{'/livro/getByTitulo/' + titulo}">
+          <label for="titulo">Insira o título do livro:</label>
+          <input
+            type="text"
+            id="titulo"
+            name="titulo"
+            placeholder="Digite aqui"
+          />
+          <button type="submit">Pesquisar por título</button>
+        </form>
+
+        <form th:action="@{'/livro/getByIsbn/' + isbn}">
+          <label for="isbn">Insira o ISBN do livro:</label>
+          <input
+            type="number"
+            id="isbn"
+            name="isbn"
+            placeholder="Digite aqui"
+          />
+          <button type="submit">Pesquisar por ISBN</button>
+        </form>
       </div>
+      <!-- Formulário de deletar -->
+      <div></div>
     </div>
   </body>
 </html>
