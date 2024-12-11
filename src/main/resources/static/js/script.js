@@ -44,24 +44,30 @@ document
   });
 
 //* Deletar livro
+/* Eu tentei carregar o botão de excluir na própria lista de todos os livros, mas 
+estava muito complicado para fazer funcionar dessa forma */
+
 document
   .getElementById("botaoDeletarLivro")
   .addEventListener("click", function (event) {
     event.preventDefault();
-    const id = this.getAttribute("data-id");
+    const id = document.getElementById("deleteIdLivro").value;
 
-    if (confirm("Tem certeza que deseja deletar este livro?")) deleteLivro(id);
+    if (confirm("Tem certeza que deseja excluir este livro?")) deleteLivro(id);
   });
 
 function deleteLivro(id) {
   fetch(`/livro/${id}`)
-    .then(() => {
-      alert("Livro excluído com sucesso");
-      location.reload();
+    .then((response) => {
+      if (response.ok) {
+        alert("Livro excluído com sucesso");
+        location.reload();
+      } else {
+        alert("Erro ao excluir o livro");
+      }
     })
     .catch((error) => {
       console.error(error);
-      alert("Erro ao excluir o livro");
     });
 }
 
@@ -72,7 +78,7 @@ document
     event.preventDefault();
 
     const livro = {
-      id_livro: null,
+      id_livro: 0,
       titulo: document.getElementById("cadastroTitulo").value,
       autor: document.getElementById("cadastroAutor").value,
       editora: document.getElementById("cadastroEditora").value,
@@ -91,12 +97,15 @@ function addLivro(livro) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(livro),
   })
-    .then(() => {
-      alert("Livro cadastrado com sucesso");
-      location.reload();
+    .then((response) => {
+      if (response.ok) {
+        alert("Livro cadastrado com sucesso");
+        location.reload();
+      } else {
+        alert("Erro ao cadastrar o livro");
+      }
     })
     .catch((error) => {
       console.error(error);
-      alert("Erro ao cadastrar o livro");
     });
 }
