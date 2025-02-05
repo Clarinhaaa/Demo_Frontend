@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title
+      th:text="${liv} != null && ${liv.id_livro} != null ? 'Editar livro' : 'Novo livro'"
+    />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  </head>
+  <body>
+    <div class="container mt-4">
+      <h1
+        th:text="${liv} != null && ${liv.id_livro} != null ? 'Editar' : 'Novo'"
+      />
+      <form
+        th:action="@{/livro/}"
+        th:object="${liv}"
+        method="post"
+        class="row g-3"
+      >
+        <div class="col md-6">
+          <label class="form-label" for="titulo">Título:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="titulo"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-6">
+          <label class="form-label" for="autor">Autor:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="autor"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-6">
+          <label class="form-label" for="editora">Editora:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="editora"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-6">
+          <label class="form-label" for="anoPublicacao"
+            >Ano de publicação:</label
+          >
+          <input
+            class="form-control"
+            type="number"
+            min="1000"
+            max="2025"
+            id="anoPublicacao"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-4">
+          <label class="form-label" for="genero">Gênero(s):</label>
+          <input
+            class="form-control"
+            type="text"
+            id="genero"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-4">
+          <label class="form-label" for="isbn">ISBN:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="isbn"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-4">
+          <label class="form-label" for="numPaginas">Número de páginas:</label>
+          <input
+            class="form-control"
+            type="number"
+            id="numPaginas"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col md-12">
+          <button class="btn btn-primary" type="submit">SALVAR</button>
+        </div>
+      </form>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+    <script th:src="@{/js/script.js}"></script>
+  </body>
+</html>

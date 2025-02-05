@@ -33,30 +33,15 @@ public class LivroService {
         return livroRetornar;
     }
 
-    // * Pegar o livro pelo ISBN */
-    public LivroDTO getByIsbn(Integer isbn) {
-        Mono<LivroDTO> livro = this.webClient.method(HttpMethod.GET).uri("livro/getByIsbn/{isbn}", isbn).retrieve()
+    // * Adicionar/Editar livro */
+    public boolean salvarOuAtualizarLivro(LivroDTO livroObj) {
+        Mono<LivroDTO> object = this.webClient.method(HttpMethod.POST).uri("livro", livroObj).bodyValue(livroObj).retrieve()
                 .bodyToMono(LivroDTO.class);
-
-        LivroDTO livroRetornar = livro.block();
-        return livroRetornar;
-    }
-
-    // * Pegar o livro pelo título */
-    public LivroDTO getByTitulo(String titulo) {
-        Mono<LivroDTO> livro = this.webClient.method(HttpMethod.GET).uri("livro/getByTitulo/{titulo}", titulo)
-                .retrieve()
-                .bodyToMono(LivroDTO.class);
-
-        LivroDTO livroRetornar = livro.block();
-        return livroRetornar;
-    }
-
-    // * Adicionar livro */
-    public LivroDTO addLivro(LivroDTO livroCadastrar) {
-        return this.webClient.method(HttpMethod.POST).uri("livro").bodyValue(livroCadastrar).retrieve()
-                .bodyToMono(LivroDTO.class)
-                .block();
+        
+        LivroDTO liv = object.block();
+        if (liv != null)
+            return true;
+        return false;
     }
 
     // * Deletar livro */

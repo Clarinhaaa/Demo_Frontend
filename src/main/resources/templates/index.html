@@ -3,212 +3,58 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   </head>
   <body>
-    <div class="container">
-      <!-- Imprimir todos os livros -->
-      <h2>Todos os livros cadastrados</h2>
-      <div class="lista-livros" id="listaLivros">
-        <tr th:each="liv : ${listaLivros}">
-          <div class="livro">
-            <h2 class="titulo"><td th:text="${liv.titulo}"></td></h2>
-            <p>
-              ID:
-              <td th:text="${liv.id_livro}"></td>
-            </p>
-            <p>
-              Autor(a):
-              <td th:text="${liv.autor}"></td>
-            </p>
-            <p>
-              Editora:
-              <td th:text="${liv.editora}"></td>
-            </p>
-            <p>
-              Ano de publicação:
-              <td th:text="${liv.ano_publicacao}"></td>
-            </p>
-            <p>
-              Gênero(s):
-              <td th:text="${liv.genero}"></td>
-            </p>
-            <p>
-              ISBN:
-              <td th:text="${liv.isbn}"></td>
-            </p>
-            <p>
-              Qtd. páginas:
-              <td th:text="${liv.num_paginas}"></td>
-            </p>
-          </div>
-        </tr>
-      </div>
-      <!-- Formulários de pesquisa -->
-      <hr />
-      <h2>Pesquisas de livros</h2>
-      <div class="form-complexo">
-        <form>
-          <div class="elemento-form">
-            <label for="idLivro">Insira o ID do livro:</label>
-            <input
-              type="number"
-              id="idLivro"
-              name="idLivro"
-              placeholder="Digite aqui"
-            />
-            <button type="submit" id="botaoPesquisarPorId">
-              Pesquisar por ID
-            </button>
-          </div>
-        </form>
-
-        <form>
-          <div class="elemento-form">
-            <label for="titulo">Insira o título do livro:</label>
-            <input
-              type="text"
-              id="titulo"
-              name="titulo"
-              placeholder="Digite aqui"
-            />
-            <button type="submit" id="botaoPesquisarPorTitulo">
-              Pesquisar por título
-            </button>
-          </div>
-        </form>
-
-        <form>
-          <div class="elemento-form">
-            <label for="isbn">Insira o ISBN do livro:</label>
-            <input
-              type="number"
-              id="isbn"
-              name="isbn"
-              placeholder="Digite aqui"
-            />
-            <button type="submit" id="botaoPesquisarPorIsbn">
-              Pesquisar por ISBN
-            </button>
-          </div>
-        </form>
-      </div>
-      <div class="resultados-pesquisa">
-        <div class="livro" th:if="${livroPorId}">
-          <h1 th:text="${livroPorId.titulo}" class="titulo"></h1>
-          <p>Autor(a): <span th:text="${livroPorId.autor}"></span></p>
-          <p>Editora: <span th:text="${livroPorId.editora}"></span></p>
-          <p>
-            Ano de publicação:
-            <span th:text="${livroPorId.ano_publicacao}"></span>
-          </p>
-          <p>Gênero(s): <span th:text="${livroPorId.genero}"></span></p>
-          <p>ISBN: <span th:text="${livroPorId.isbn}"></span></p>
-          <p>Qtd. páginas: <span th:text="${livroPorId.num_paginas}"></span></p>
-        </div>
-
-        <div class="livro" th:if="${livroPorTitulo}">
-          <h1 th:text="${livroPorTitulo.titulo}" class="titulo"></h1>
-          <p>Autor(a): <span th:text="${livroPorTitulo.autor}"></span></p>
-          <p>Editora: <span th:text="${livroPorTitulo.editora}"></span></p>
-          <p>
-            Ano de publicação:
-            <span th:text="${livroPorTitulo.ano_publicacao}"></span>
-          </p>
-          <p>Gênero(s): <span th:text="${livroPorTitulo.genero}"></span></p>
-          <p>ISBN: <span th:text="${livroPorTitulo.isbn}"></span></p>
-          <p>
-            Qtd. páginas: <span th:text="${livroPorTitulo.num_paginas}"></span>
-          </p>
-        </div>
-
-        <div class="livro" th:if="${livroPorIsbn}">
-          <h1 th:text="${livroPorIsbn.titulo}" class="titulo"></h1>
-          <p>Autor(a): <span th:text="${livroPorIsbn.autor}"></span></p>
-          <p>Editora: <span th:text="${livroPorIsbn.editora}"></span></p>
-          <p>
-            Ano de publicação:
-            <span th:text="${livroPorIsbn.ano_publicacao}"></span>
-          </p>
-          <p>Gênero(s): <span th:text="${livroPorIsbn.genero}"></span></p>
-          <p>ISBN: <span th:text="${livroPorIsbn.isbn}"></span></p>
-          <p>
-            Qtd. páginas: <span th:text="${livroPorIsbn.num_paginas}"></span>
-          </p>
-        </div>
-      </div>
-
-      <hr />
-      <!-- Formulário de exclusão -->
-      <h2>Deletar livros</h2>
-      <div class="form-simples">
-        <form>
-          <div class="elemento-form">
-            <label for="deleteIdLivro">Insira o ID do livro:</label>
-            <input
-              type="number"
-              id="deleteIdLivro"
-              name="deleteIdLivro"
-              placeholder="Digite aqui"
-            />
-            <button type="submit" id="botaoDeletarLivro">Excluir</button>
-          </div>
-        </form>
-      </div>
-
-      <hr />
-      <h2>Cadastro de livros</h2>
-      <!-- Formulário de cadastro -->
-      <div class="form-complexo">
-        <form id="formCadastroLivro">
-          <div class="elemento-form">
-            <label for="titulo">Título:</label>
-            <input type="text" id="cadastroTitulo" name="cadstroTitulo" />
-          </div>
-          <div class="elemento-form">
-            <label for="autor">Autor(a)</label>
-            <input type="text" id="cadastroAutor" name="cadstroAutor" />
-          </div>
-          <div class="elemento-form">
-            <label for="editora">Editora</label>
-            <input type="text" id="cadastroEditora" name="cadstroEditora" />
-          </div>
-          <div class="elemento-form">
-            <label for="anoPublicacao">Ano de publicação</label>
-            <input
-              type="number"
-              min="1000"
-              max="2024"
-              id="cadastroAnoPublicacao"
-              name="cadstroAnoPublicacao"
-            />
-          </div>
-          <div class="elemento-form">
-            <label for="genero">Gênero(s)</label>
-            <input type="text" id="cadastroGenero" name="cadstroGenero" />
-          </div>
-          <div class="elemento-form">
-            <label for="isbn">ISBN:</label>
-            <input type="number" id="cadastroIsbn" name="cadstroIsbn" />
-          </div>
-          <div class="elemento-form">
-            <label for="numPaginas">Qtd. páginas:</label>
-            <input
-              type="number"
-              id="cadastroNumPaginas"
-              name="cadstroNumPaginas"
-            />
-          </div>
-          <button
-            type="submit"
-            id="botaoCadastrarLivro"
-          >
-            Cadastrar
-          </button>
-        </form>
-      </div>
+    <div class="container mt-4">
+      <a class="btn btn-primary" th:href="@{/livro/cadastro}" role="button"></a>
+      <br />
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Título</th>
+            <th scope="col">Autor</th>
+            <th scope="col">Editora</th>
+            <th scope="col">Ano de publicação</th>
+            <th scope="col">Ações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr th:each="liv : ${listaLivros}">
+            <td th:text="${liv.id_livro}" />
+            <td th:text="${liv.titulo}" />
+            <td th:text="${liv.autor}" />
+            <td th:text="${liv.editora}" />
+            <td th:text="${liv.ano_publicacao}" />
+            <td>
+              <div class="container">
+                <a
+                  class="btn btn-primary"
+                  th:href="@{/livro/view/{id}(id=${liv.id_livro})}"
+                  role="button"
+                  >Visualizar</a
+                >
+                <a
+                  class="btn btn-warning"
+                  th:href="@{/livro/edit/{id}(id=${liv.id_livro})}"
+                  role="button"
+                  >Editar</a
+                >
+                <a
+                  class="btn btn-danger"
+                  th:href="@{/livro/delete/{id}(id=${liv.id_livro})}"
+                  role="button"
+                  onclick="return confirm('Tem certeza que deseja excluir este livro?')"
+                  >Deletar</a
+                >
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-    <script src="/js/script.js"></script>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
   </body>
 </html>
