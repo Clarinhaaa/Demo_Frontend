@@ -4,14 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title
-      th:text="${liv} != null && ${liv.id_livro} != null ? 'Editar livro' : 'Novo livro'"
+      th:text="${liv} != null and ${liv.id_livro} != null ? 'Edição' : 'Cadastro'"
     />
     <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
   </head>
   <body>
-    <div class="container mt-4">
+    <div class="container mt-3">
       <h1
-        th:text="${liv} != null && ${liv.id_livro} != null ? 'Editar' : 'Novo'"
+        th:text="${liv} != null and ${liv.id_livro} != null ? 'Editar livro' : 'Novo livro'"
       />
       <form
         th:action="@{/livro/}"
@@ -19,37 +19,41 @@
         method="post"
         class="row g-3"
       >
-        <div class="col md-6">
+        <input type="hidden" th:field="*{id_livro}" />
+        <div class="col-md-6">
           <label class="form-label" for="titulo">Título:</label>
           <input
             class="form-control"
             type="text"
             id="titulo"
+            th:field="*{titulo}"
             th:disabled="${isView}"
             required
           />
         </div>
-        <div class="col md-6">
+        <div class="col-md-6">
           <label class="form-label" for="autor">Autor:</label>
           <input
             class="form-control"
             type="text"
             id="autor"
+            th:field="*{autor}"
             th:disabled="${isView}"
             required
           />
         </div>
-        <div class="col md-6">
+        <div class="col-md-6">
           <label class="form-label" for="editora">Editora:</label>
           <input
             class="form-control"
             type="text"
             id="editora"
+            th:field="*{editora}"
             th:disabled="${isView}"
             required
           />
         </div>
-        <div class="col md-6">
+        <div class="col-md-6">
           <label class="form-label" for="anoPublicacao"
             >Ano de publicação:</label
           >
@@ -59,46 +63,60 @@
             min="1000"
             max="2025"
             id="anoPublicacao"
+            th:field="*{ano_publicacao}"
             th:disabled="${isView}"
             required
           />
         </div>
-        <div class="col md-4">
-          <label class="form-label" for="genero">Gênero(s):</label>
-          <input
+        <div class="col-md-4">
+          <label class="form-label" for="genero">Gênero:</label>
+          <select
             class="form-control"
-            type="text"
             id="genero"
+            th:field="*{genero_id}"
             th:disabled="${isView}"
             required
-          />
+          >
+            <option value="" selected>Selecione um gênero literário</option>
+            <option
+              th:each="gen : ${listaGen}"
+              th:value="${gen.id_genero}"
+              th:text="${gen.nome_genero}"
+              th:selected="${liv.genero_id} == ${gen.id_genero}"
+            />
+          </select>
+          <a th:href="@{/genero/}">Gerenciar gêneros</a>
         </div>
-        <div class="col md-4">
+        <div class="col-md-4">
           <label class="form-label" for="isbn">ISBN:</label>
           <input
             class="form-control"
             type="text"
             id="isbn"
+            th:field="*{isbn}"
             th:disabled="${isView}"
             required
           />
         </div>
-        <div class="col md-4">
+        <div class="col-md-4">
           <label class="form-label" for="numPaginas">Número de páginas:</label>
           <input
             class="form-control"
             type="number"
             id="numPaginas"
+            th:field="*{num_paginas}"
             th:disabled="${isView}"
             required
           />
         </div>
-        <div class="col md-12">
-          <button class="btn btn-primary" type="submit">SALVAR</button>
+        <div class="col-md-12 mt-3">
+          <button class="btn btn-success" type="submit" th:disabled="${isView}">
+            Salvar
+          </button>
+          <a th:href="@{/livro/}" class="btn btn-secondary">Voltar</a>
         </div>
       </form>
     </div>
     <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
-    <script th:src="@{/js/script.js}"></script>
   </body>
 </html>

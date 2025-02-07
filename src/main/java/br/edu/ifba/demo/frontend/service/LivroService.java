@@ -17,11 +17,11 @@ public class LivroService {
 
     // * Listar todos os livros */
     public List<LivroDTO> listAllLivros() {
-        Mono<List<LivroDTO>> livroList = this.webClient.method(HttpMethod.GET).uri("livro/listall").retrieve()
+        Mono<List<LivroDTO>> listaLiv = this.webClient.method(HttpMethod.GET).uri("livro/listall").retrieve()
                 .bodyToFlux(LivroDTO.class).collectList();
 
-        List<LivroDTO> livroListRetornar = livroList.block();
-        return livroListRetornar;
+        List<LivroDTO> listaLivRetornar = listaLiv.block();
+        return listaLivRetornar;
     }
 
     // * Pegar o livro pelo ID */
@@ -34,8 +34,8 @@ public class LivroService {
     }
 
     // * Adicionar/Editar livro */
-    public boolean salvarOuAtualizarLivro(LivroDTO livroObj) {
-        Mono<LivroDTO> object = this.webClient.method(HttpMethod.POST).uri("livro", livroObj).bodyValue(livroObj).retrieve()
+    public boolean salvarOuAtualizarLivro(LivroDTO livObj) {
+        Mono<LivroDTO> object = this.webClient.method(HttpMethod.POST).uri("livro", livObj).bodyValue(livObj).retrieve()
                 .bodyToMono(LivroDTO.class);
         
         LivroDTO liv = object.block();
@@ -46,11 +46,11 @@ public class LivroService {
 
     // * Deletar livro */
     public boolean deleteLivro(Long id_livro) {
-        Mono<LivroDTO> livroList = this.webClient.method((HttpMethod.DELETE)).uri("livro/{idLivro}", id_livro)
+        Mono<LivroDTO> livObj = this.webClient.method((HttpMethod.DELETE)).uri("livro/{id}", id_livro)
                 .retrieve().bodyToMono(LivroDTO.class);
 
-        LivroDTO livro = livroList.block();
-        if (livro != null)
+        LivroDTO liv = livObj.block();
+        if (liv != null)
             return true;
         return false;
     }

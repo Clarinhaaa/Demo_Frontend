@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title
+      th:text="${gen} != null and ${gen.id_genero} != null ? 'Edição' : 'Cadastro'"
+    />
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}" />
+  </head>
+  <body>
+    <div class="container mt-3">
+      <h1
+      th:text="${gen} != null and ${gen.id_genero} != null ? 'Editar gênero' : 'Novo gênero'"
+      />
+      <form
+        th:action="@{/genero/}"
+        th:object="${gen}"
+        method="post"
+        class="row g-3"
+      >
+        <input type="hidden" th:field="*{id_genero}" />
+        <div class="col-md-6">
+          <label class="form-label" for="nome_genero">Nome:</label>
+          <input
+            class="form-control"
+            type="text"
+            id="nomeGenero"
+            th:field="*{nome_genero}"
+            th:disabled="${isView}"
+            required
+          />
+        </div>
+        <div class="col-md-6">
+          <label class="form-label" for="status_genero">Status:</label>
+          <select
+            class="form-control"
+            id="statusGenero"
+            th:field="*{status_genero}"
+            th:disabled="${isView}"
+            required
+          >
+            <option value="true">True</option>
+            <option value="false">False</option>
+          </select>
+        </div>
+        <div class="col-md-12 mt-3">
+          <button class="btn btn-success" type="submit" th:disabled="${isView}">
+            Salvar
+          </button>
+          <a th:href="@{/genero/}" class="btn btn-secondary">Voltar</a>
+        </div>
+      </form>
+    </div>
+    <script th:src="@{/js/bootstrap.bundle.min.js}"></script>
+  </body>
+</html>

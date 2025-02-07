@@ -9,7 +9,7 @@ public class LivroDTO {
     private String autor;
     private String editora;
     private Integer ano_publicacao;
-    private String genero;
     private Integer isbn;
     private Integer num_paginas;
+    private Long genero_id;
 }
